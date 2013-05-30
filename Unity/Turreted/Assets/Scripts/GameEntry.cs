@@ -4,13 +4,25 @@ using System.Collections;
 public class GameEntry : MonoBehaviour {
 
 	// Use this for initialization
-	void Start () {
-		GameObject foo = Instantiate(Resources.Load("SimpleParticleEffect")) as GameObject;
-		 foo.transform.position.Set(0, 0, 0);
+	void Start () 
+	{
+		BootstrapScene();
+		
 	}
 	
 	// Update is called once per frame
-	void Update () {
+	void Update () 
+	{
 	
+	}
+	
+	void BootstrapScene()
+	{
+		//Camera.mainCamera.transform.position = new Vector3(0, 50, 0);
+		//Camera.mainCamera.transform.up = new Vector3(0, 0, 1);
+		
+		Instantiate(Resources.Load("SimpleParticleEffect"));
+		
+		Instantiate(Resources.Load("Floor"));
 	}
 }
