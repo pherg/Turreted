@@ -14,7 +14,6 @@ public class SpawnController : MonoBehaviour
 	// Use this for initialization
 	void Start () 
 	{
-		Debug.Log("START!");
 	}
 	
 	// Update is called once per frame
@@ -23,7 +22,6 @@ public class SpawnController : MonoBehaviour
 		mTimeSinceLastSpawn += Time.deltaTime;
 		if (mTimeSinceLastSpawn >= mNextSpawnTime)
 		{
-			Debug.Log ("Attempting to spawn an actor.");
 			Vector2 randPosition = Random.insideUnitCircle;
 			randPosition.Normalize();
 			randPosition *= DistanceFromCenter;

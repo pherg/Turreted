@@ -18,16 +18,12 @@ public class GameEntry : MonoBehaviour {
 	
 	void StartGame()
 	{
+		Instantiate(Resources.Load("Actors/Player"));
 		Instantiate(Resources.Load("Actors/SpawnController"));
 	}
 	
 	void BootstrapScene()
-	{
-		//Camera.mainCamera.transform.position = new Vector3(0, 50, 0);
-		//Camera.mainCamera.transform.up = new Vector3(0, 0, 1);
-		
-		Instantiate(Resources.Load("SimpleParticleEffect"));
-		
-		Instantiate(Resources.Load("Floor"));
+	{		
+		Instantiate(Resources.Load("Actors/Floor"));
 	}
 }
