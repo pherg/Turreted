@@ -7,13 +7,18 @@ public class GameEntry : MonoBehaviour {
 	void Start () 
 	{
 		BootstrapScene();
-		
+		StartGame();
 	}
 	
 	// Update is called once per frame
 	void Update () 
 	{
 	
+	}
+	
+	void StartGame()
+	{
+		Instantiate(Resources.Load("Actors/SpawnController"));
 	}
 	
 	void BootstrapScene()
