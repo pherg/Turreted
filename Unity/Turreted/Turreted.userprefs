@@ -1,8 +1,8 @@
 ﻿<Properties>
   <MonoDevelop.Ide.Workspace ActiveConfiguration="Debug" />
-  <MonoDevelop.Ide.Workbench ActiveDocument="Assets/GameEntry.cs">
+  <MonoDevelop.Ide.Workbench ActiveDocument="Assets/Scripts/GameEntry.cs">
     <Files>
-      <File FileName="Assets/GameEntry.cs" Line="7" Column="17" />
+      <File FileName="Assets/Scripts/GameEntry.cs" Line="17" Column="1" />
     </Files>
   </MonoDevelop.Ide.Workbench>
   <MonoDevelop.Ide.DebuggingService.Breakpoints>
