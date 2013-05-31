@@ -44,6 +44,8 @@
 	</Reference>
   </ItemGroup>
   <ItemGroup>
+     <Compile Include="Assets\Scripts\Actors\ActorController.cs" />
+     <Compile Include="Assets\Scripts\Actors\ActorModel.cs" />
      <Compile Include="Assets\Scripts\Actors\KillboxScript.cs" />
      <Compile Include="Assets\Scripts\Actors\PlayerController.cs" />
      <Compile Include="Assets\Scripts\Actors\SimpleMovement.cs" />
