@@ -8,8 +8,8 @@ public class SpawnController : MonoBehaviour
 	
 	public float DistanceFromCenter = 10.0f;
 	
-	private float mTimeSinceLastSpawn = 0;
-	private float mNextSpawnTime = 0;
+	private float mTimeSinceLastSpawn = 0.0f;
+	private float mNextSpawnTime = 0.0f;
 	
 	// Use this for initialization
 	void Start () 
@@ -32,8 +32,10 @@ public class SpawnController : MonoBehaviour
 	
 	void SpawnActor(Vector3 position)
 	{
-		Instantiate(Resources.Load("Actors/Actor1"), position, Quaternion.identity);
-		//GameObject newActor = Instantiate(Resources.Load("Actor1"), position, Quaternion.identity) as GameObject;
+		GameObject newActor = Instantiate(Resources.Load("Actors/Actor1"), position, Quaternion.identity) as GameObject;
+		SimpleMovement moveScript = newActor.GetComponent("SimpleMovement") as SimpleMovement;
+		
+		moveScript.SetDirection(new Vector3(0, 0, 0));
 	}
 	
 	void ResetSpawnTimers()
