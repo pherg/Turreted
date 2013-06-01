@@ -54,6 +54,7 @@
      <Compile Include="Assets\Scripts\GameEntry.cs" />
      <Compile Include="Assets\Scripts\SpawnController.cs" />
      <Compile Include="Assets\Utility\Tuple.cs" />
+     <None Include="Assets\Resources\Shaders\Cel ShaderGLSL.shader" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

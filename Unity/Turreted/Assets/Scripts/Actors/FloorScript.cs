@@ -22,27 +22,43 @@ public struct HSL
 
 public class FloorScript : MonoBehaviour 
 {
-	//Color of the rectangle
-	//r,g,b,a
-	Color mColor;
+	//Colors we're interpolating between
+	Color mPreviousColor, mNextColor;
+	
+	//Frame of the interpolation, 0 to 20
+	uint mFrame;
 
 	// Use this for initialization
 	void Start() 
 	{
 		//default color values
-		mColor.r = 0;
-		mColor.g = 0;
-		mColor.b = 0;
-		mColor.a = 0;
+		mPreviousColor = renderer.material.GetColor("_Color");
+		mNextColor     = GetComplementary( AverageColorOfScene() ); 
+		
+		mFrame = 0;
 	}
 	
 	// Update is called once per frame
 	void Update() 
 	{
-		//Update color to complementary of the scene
-		mColor = GetComplementary( AverageColorOfScene() );
+		mFrame++;
+		Color currentColor = Color.blue;
 		
-		renderer.material.SetColor("_Color", mColor );
+		currentColor.r = (((float)mFrame*(float)0.05)*(mNextColor.r - mPreviousColor.r)) + mPreviousColor.r;
+		currentColor.g = (((float)mFrame*(float)0.05)*(mNextColor.g - mPreviousColor.g)) + mPreviousColor.g;
+		currentColor.b = (((float)mFrame*(float)0.05)*(mNextColor.b - mPreviousColor.b)) + mPreviousColor.b;
+		
+		renderer.material.SetColor("_Color", currentColor );
+		
+		//If we're gone up 10 frames, its time to get a new color to interpolate to
+		if ( mFrame >= 20 )
+		{
+			mPreviousColor = mNextColor;
+			
+			mNextColor = GetComplementary( AverageColorOfScene() ); 
+			
+			mFrame = 0;
+		}
 	}
 	
 	// Finds the Complementary color of c
