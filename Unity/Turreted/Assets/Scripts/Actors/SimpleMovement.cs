@@ -5,15 +5,21 @@ public class SimpleMovement : MonoBehaviour
 {
 	public float Speed = 2.0f;
 	public float RandomizedHeading = 45.0f;
-	public float Damage = 10;
+	
+	private ActorModel mActorModel;
 	
 	private Vector3 mDirection;
 	
 	void Start () 
 	{
+		mActorModel = gameObject.GetComponent("ActorModel") as ActorModel;
+		if (mActorModel == null)
+		{
+			throw new MissingComponentException("Unable to find actor model on gameObject.");
+		}
 	}
 	
-	void Update () 
+	void FixedUpdate () 
 	{
 		rigidbody.AddForce(mDirection * Speed);
 	}
@@ -26,14 +32,5 @@ public class SimpleMovement : MonoBehaviour
 
 		Vector3 direction = Quaternion.AngleAxis(Random.Range(-RandomizedHeading, RandomizedHeading), Vector3.up) * initDirection;
 		mDirection = direction;
-	}
-	
-	void OnCollisionEnter(Collision collision)
-	{
-		PlayerController pc = collision.collider.gameObject.GetComponent("PlayerController") as PlayerController;
-		if (pc)
-		{
-			pc.AlterHealthPoints(Damage);
-		}
 	}
 }
