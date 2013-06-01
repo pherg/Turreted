@@ -190,8 +190,9 @@ public class FloorScript : MonoBehaviour
 		{
 			Color temp = actors[i].renderer.material.GetColor("_Color");
 			
-			//@TODO:  Scale how much rgb is impacted by the size of the object
-			float scale = 1;
+			//This is just a rough way to scale an objects impact on the scenes average color
+			//This probably requires some tuning
+			float scale = actors[i].transform.localScale.x / 2;
 			
 			r += temp.r * scale;
 			g += temp.g * scale;
