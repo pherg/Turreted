@@ -48,10 +48,12 @@
      <Compile Include="Assets\Scripts\Actors\ActorModel.cs" />
      <Compile Include="Assets\Scripts\Actors\FloorScript.cs" />
      <Compile Include="Assets\Scripts\Actors\KillboxScript.cs" />
+     <Compile Include="Assets\Scripts\Actors\PlayerShootController.cs" />
      <Compile Include="Assets\Scripts\Actors\SimpleMovement.cs" />
      <Compile Include="Assets\Scripts\Effects\DeathEffect.cs" />
      <Compile Include="Assets\Scripts\GameEntry.cs" />
      <Compile Include="Assets\Scripts\SpawnController.cs" />
+     <Compile Include="Assets\Utility\Tuple.cs" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

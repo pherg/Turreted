@@ -20,7 +20,6 @@ public class ActorModel : MonoBehaviour
 	void Awake () 
 	{
 		mHealthPoints = StartingHealth;
-		Debug.Log ("Setting starting health to: " + StartingHealth);
 	}
 	
 	void Update () 

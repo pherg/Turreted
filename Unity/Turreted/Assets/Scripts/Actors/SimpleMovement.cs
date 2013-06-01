@@ -24,9 +24,9 @@ public class SimpleMovement : MonoBehaviour
 		rigidbody.AddForce(mDirection * Speed);
 	}
 	
-	public void SetDirection(Vector3 target)
+	public void SetTarget(Vector3 target)
 	{
-		Vector3 initDirection = Vector3.zero - transform.position;
+		Vector3 initDirection = target - transform.position;
 		initDirection.y = 0;
 		initDirection.Normalize();
 

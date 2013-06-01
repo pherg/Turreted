@@ -8,6 +8,8 @@ public class SpawnController : MonoBehaviour
 	
 	public float DistanceFromCenter = 10.0f;
 	
+	public UnityEngine.Object[] EnemyList;
+	
 	private float mTimeSinceLastSpawn = 0.0f;
 	private float mNextSpawnTime = 0.0f;
 	
@@ -32,10 +34,19 @@ public class SpawnController : MonoBehaviour
 	
 	void SpawnActor(Vector3 position)
 	{
-		GameObject newActor = Instantiate(Resources.Load("Actors/Actor1"), position, Quaternion.identity) as GameObject;
-		SimpleMovement moveScript = newActor.GetComponent("SimpleMovement") as SimpleMovement;
+		int randVal = (int)(Random.value * 100);
+		int index = randVal % EnemyList.Length;
 		
-		moveScript.SetDirection(new Vector3(0, 0, 0));
+		GameObject newActor = Instantiate(EnemyList[index]) as GameObject;
+		position.y += newActor.transform.localScale.y;
+		newActor.transform.position = position;
+		
+		SimpleMovement moveScript = newActor.GetComponent("SimpleMovement") as SimpleMovement;
+		if (moveScript == null)
+		{
+			throw new MissingComponentException("TODO: Refactor MoveScripts to be BrainScripts.");
+		}
+		moveScript.SetTarget(new Vector3(0, 0, 0));
 	}
 	
 	void ResetSpawnTimers()
