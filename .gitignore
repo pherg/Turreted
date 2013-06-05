@@ -1,0 +1,7 @@
+Unity/Turreted/Temp/
+Unity/Turreted/Library/
+*.pidb
+*.csproj
+*.DS_Store
+*.sln
+*.userprefs
