@@ -16,7 +16,7 @@ public class ActorController : MonoBehaviour
 	
 	void FixedUpdate () 
 	{
-		//mActorModel.AlterHealthPoints(-mActorModel.HealthDrainPerTick);
+		mActorModel.AlterHealthPoints(-mActorModel.HealthDrainPerTick);
 		
 		float newScale = (mActorModel.HealthPoints/mActorModel.StartingHealth 
 						* (mActorModel.InitialScale - mActorModel.MinScale)) + mActorModel.MinScale;

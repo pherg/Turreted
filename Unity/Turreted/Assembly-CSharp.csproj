@@ -51,6 +51,7 @@
      <Compile Include="Assets\Scripts\Actors\PlayerShootController.cs" />
      <Compile Include="Assets\Scripts\Actors\SimpleMovement.cs" />
      <Compile Include="Assets\Scripts\Effects\DeathEffect.cs" />
+     <Compile Include="Assets\Scripts\GUI\ScoreTextfield.cs" />
      <Compile Include="Assets\Scripts\GameEntry.cs" />
      <Compile Include="Assets\Scripts\SpawnController.cs" />
      <Compile Include="Assets\Utility\Tuple.cs" />
