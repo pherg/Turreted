@@ -16,7 +16,7 @@ public class ActorController : MonoBehaviour
 	
 	void FixedUpdate () 
 	{
-		mActorModel.AlterHealthPoints(-mActorModel.HealthDrainPerTick);
+		//mActorModel.AlterHealthPoints(-mActorModel.HealthDrainPerTick);
 		
 		float newScale = (mActorModel.HealthPoints/mActorModel.StartingHealth 
 						* (mActorModel.InitialScale - mActorModel.MinScale)) + mActorModel.MinScale;
@@ -34,7 +34,16 @@ public class ActorController : MonoBehaviour
 		ActorModel am = collision.collider.gameObject.GetComponent("ActorModel") as ActorModel;
 		if (am && mActorModel.Team != am.Team)
 		{
+			//Debug.Log(am.Name + " dealing " + am.OnCollisionDamage + " damage to " + mActorModel.Name);
 			mActorModel.AlterHealthPoints(-am.OnCollisionDamage);
+			// If actor was killed report to parent of death.
+			if (mActorModel.HealthPoints <= 0)
+			{
+				if (am.ParentActor)
+				{
+					am.ParentActor.InformOfKill(mActorModel);
+				}
+			}
 		}
 	}
 	

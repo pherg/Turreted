@@ -27,7 +27,7 @@ public class SpawnController : MonoBehaviour
 			Vector2 randPosition = Random.insideUnitCircle;
 			randPosition.Normalize();
 			randPosition *= DistanceFromCenter;
-			SpawnActor(new Vector3(randPosition.x, 1, randPosition.y));
+			SpawnActor(new Vector3(randPosition.x, 0, randPosition.y));
 			ResetSpawnTimers();
 		}
 	}
@@ -38,7 +38,7 @@ public class SpawnController : MonoBehaviour
 		int index = randVal % EnemyList.Length;
 		
 		GameObject newActor = Instantiate(EnemyList[index]) as GameObject;
-		position.y += newActor.transform.localScale.y;
+		//position.y += newActor.transform.localScale.y;
 		newActor.transform.position = position;
 		
 		SimpleMovement moveScript = newActor.GetComponent("SimpleMovement") as SimpleMovement;

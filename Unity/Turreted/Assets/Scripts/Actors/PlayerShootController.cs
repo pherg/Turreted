@@ -26,6 +26,12 @@ public class PlayerShootController : MonoBehaviour
             if (Physics.Raycast (ray)) 
 			{
                 GameObject bullet = Instantiate (Bullet) as GameObject;
+				ActorModel bulletModel = bullet.GetComponent("ActorModel") as ActorModel;
+				bulletModel.ParentActor = GetComponent("ActorModel") as ActorModel;
+				if (bulletModel == null)
+				{
+					throw new MissingComponentException("ActorModel not found on bullet");
+				}
 				bullet.transform.position += transform.position;
 				Physics.IgnoreCollision(bullet.collider, mPlayerModel.collider);
 				
@@ -36,6 +42,9 @@ public class PlayerShootController : MonoBehaviour
 				
 				SimpleMovement simpleMovement = bullet.GetComponent("SimpleMovement") as SimpleMovement;
 				simpleMovement.SetTarget(direction);
+				
+				// Decrease health on shooter
+				mPlayerModel.AlterHealthPoints(-bulletModel.HealthCostPerBullet);
             }
         }
     }

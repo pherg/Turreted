@@ -3,6 +3,7 @@ using System.Collections;
 
 public class ActorModel : MonoBehaviour 
 {
+	public string Name = "Unamed Actor";
 	public float HealthDrainPerTick = 0.00f;
 	public float StartingHealth = 100.0f;
 	
@@ -15,7 +16,13 @@ public class ActorModel : MonoBehaviour
 	
 	public float OnCollisionDamage = 1.0f;
 	
+	public float HealthCostPerBullet = 10.0f;
+	
+	public float HealthGainPerKill = 20.0f;
+	
 	private float mHealthPoints;
+	
+	private ActorModel mParentActor;
 	
 	void Awake () 
 	{
@@ -37,9 +44,21 @@ public class ActorModel : MonoBehaviour
 		get { return this.mHealthPoints; }
 	}
 	
+	public ActorModel ParentActor
+	{
+		set { mParentActor = value; }
+		get { return mParentActor; }
+	}
+	
 	// Changes health points by delta.
 	public void AlterHealthPoints(float delta)
 	{
+		//Debug.Log (Name + " altering health points by : " + delta);
 		mHealthPoints += delta;
+	}
+	
+	public void InformOfKill(ActorModel killedActor)
+	{
+		AlterHealthPoints(killedActor.HealthGainPerKill);
 	}
 }
