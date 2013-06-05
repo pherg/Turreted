@@ -15,7 +15,7 @@ public class ScoreTextfield : MonoBehaviour
 	// Update is called once per frame
 	void Update () 
 	{
-		while(mTrackScore)
+		if(mTrackScore)
 		{
 			mTimeSpent += Time.deltaTime;
 			mScoreString = mScorePrefixString + mTimeSpent.ToString("f2");
