@@ -8,7 +8,7 @@ public class SimpleMovement : MonoBehaviour
 	
 	private ActorModel mActorModel;
 	
-	private Vector3 mDirection;
+	protected Vector3 mDirection;
 	
 	void Start () 
 	{
@@ -21,10 +21,10 @@ public class SimpleMovement : MonoBehaviour
 	
 	void FixedUpdate () 
 	{
-		rigidbody.AddForce(mDirection * Speed);
+		rigidbody.AddForce(mDirection * Speed, ForceMode.VelocityChange);
 	}
 	
-	public void SetTarget(Vector3 target)
+	public virtual void SetTarget(Vector3 target)
 	{
 		Vector3 initDirection = target - transform.position;
 		initDirection.y = 0;

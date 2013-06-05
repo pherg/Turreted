@@ -46,6 +46,7 @@
   <ItemGroup>
      <Compile Include="Assets\Scripts\Actors\ActorController.cs" />
      <Compile Include="Assets\Scripts\Actors\ActorModel.cs" />
+     <Compile Include="Assets\Scripts\Actors\BulletMovement.cs" />
      <Compile Include="Assets\Scripts\Actors\FloorScript.cs" />
      <Compile Include="Assets\Scripts\Actors\KillboxScript.cs" />
      <Compile Include="Assets\Scripts\Actors\PlayerShootController.cs" />

@@ -33,7 +33,10 @@ public class PlayerShootController : MonoBehaviour
 					throw new MissingComponentException("ActorModel not found on bullet");
 				}
 				bullet.transform.position += transform.position;
-				Physics.IgnoreCollision(bullet.collider, mPlayerModel.collider);
+				// Ignore collision with player
+				Physics.IgnoreLayerCollision(bullet.layer, mPlayerModel.gameObject.layer);
+				// Ignore collision with other bullets.
+				Physics.IgnoreLayerCollision(bullet.layer, mPlayerModel.gameObject.layer);
 				
 				Vector3 worldPointFromScreenPoint = Camera.mainCamera.ScreenToWorldPoint(
 					new Vector3 (Input.mousePosition.x, Input.mousePosition.y,Camera.mainCamera.nearClipPlane));
