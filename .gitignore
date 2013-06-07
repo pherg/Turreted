@@ -1,6 +1,7 @@
 Unity/Turreted/Temp/
 Unity/Turreted/Library/
 Unity/Turreted/bin/
+Unity/Turreted/obj/
 
 *.pidb
 *.csproj
