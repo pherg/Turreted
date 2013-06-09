@@ -1,11 +1,8 @@
 ﻿<Properties>
   <MonoDevelop.Ide.Workspace ActiveConfiguration="Debug" />
-  <MonoDevelop.Ide.Workbench ActiveDocument="Assets/Scripts/GUI/ScoreTextfield.cs">
+  <MonoDevelop.Ide.Workbench ActiveDocument="Assets\Resources\Shaders\ToonShader 2.0.shader">
     <Files>
-      <File FileName="Assets/Scripts/GUI/ScoreTextfield.cs" Line="37" Column="3" />
-      <File FileName="Assets/Scripts/GameEntry.cs" Line="1" Column="1" />
-      <File FileName="Assets/Scripts/Actors/PlayerShootController.cs" Line="1" Column="1" />
-      <File FileName="Assets/Scripts/Actors/SimpleMovement.cs" Line="1" Column="1" />
+      <File FileName="Assets\Resources\Shaders\ToonShader 2.0.shader" Line="42" Column="27" />
     </Files>
   </MonoDevelop.Ide.Workbench>
   <MonoDevelop.Ide.DebuggingService.Breakpoints>

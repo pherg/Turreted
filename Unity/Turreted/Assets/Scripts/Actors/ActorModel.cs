@@ -61,4 +61,10 @@ public class ActorModel : MonoBehaviour
 	{
 		AlterHealthPoints(killedActor.HealthGainPerKill);
 	}
+	
+	public float GetScale()
+	{
+		float actorScale = (HealthPoints/StartingHealth * (InitialScale - MinScale)) + MinScale;
+		return actorScale;
+	}
 }
