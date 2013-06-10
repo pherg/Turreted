@@ -20,8 +20,11 @@ public struct HSL
 	public float l;
 };
 
-public class FloorScript : MonoBehaviour 
+public class FloorColorScript : MonoBehaviour 
 {
+	//Number of frames that it takes to interpolate from mPreviousColor to mNextColor
+	private const float INTERPOLATE_RATE = 20;
+	
 	//Colors we're interpolating between
 	Color mPreviousColor, mNextColor;
 	
@@ -44,14 +47,14 @@ public class FloorScript : MonoBehaviour
 		mFrame++;
 		Color currentColor = Color.blue;
 		
-		currentColor.r = (((float)mFrame*(float)0.05)*(mNextColor.r - mPreviousColor.r)) + mPreviousColor.r;
-		currentColor.g = (((float)mFrame*(float)0.05)*(mNextColor.g - mPreviousColor.g)) + mPreviousColor.g;
-		currentColor.b = (((float)mFrame*(float)0.05)*(mNextColor.b - mPreviousColor.b)) + mPreviousColor.b;
+		currentColor.r = (((float)mFrame*(1/INTERPOLATE_RATE))*(mNextColor.r - mPreviousColor.r)) + mPreviousColor.r;
+		currentColor.g = (((float)mFrame*(1/INTERPOLATE_RATE))*(mNextColor.g - mPreviousColor.g)) + mPreviousColor.g;
+		currentColor.b = (((float)mFrame*(1/INTERPOLATE_RATE))*(mNextColor.b - mPreviousColor.b)) + mPreviousColor.b;
 		
 		renderer.material.SetColor("_Color", currentColor );
 		
 		//If we're gone up 10 frames, its time to get a new color to interpolate to
-		if ( mFrame >= 20 )
+		if ( mFrame >= INTERPOLATE_RATE )
 		{
 			mPreviousColor = mNextColor;
 			
