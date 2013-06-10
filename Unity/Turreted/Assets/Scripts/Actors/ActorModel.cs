@@ -57,6 +57,8 @@ public class ActorModel : MonoBehaviour
 		mHealthPoints += delta;
 	}
 	
+	// TODO: Need to move this to actor controller and add more
+	// complex logic like view effects.
 	public void InformOfKill(ActorModel killedActor)
 	{
 		AlterHealthPoints(killedActor.HealthGainPerKill);
