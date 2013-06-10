@@ -8,3 +8,11 @@ Unity/Turreted/obj/
 *.DS_Store
 *.sln
 *.userprefs
+
+*.pidb
+
+*.pidb
+
+*.userprefs
+
+*.csproj
