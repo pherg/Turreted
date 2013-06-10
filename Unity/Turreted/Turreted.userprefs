@@ -1,6 +1,13 @@
 ﻿<Properties>
   <MonoDevelop.Ide.Workspace ActiveConfiguration="Debug" />
-  <MonoDevelop.Ide.Workbench />
+  <MonoDevelop.Ide.Workbench ActiveDocument="Assets\Resources\Shaders\ToonShader 2.0.shader">
+    <Files>
+      <File FileName="Assets\Resources\Shaders\ToonShader 2.0.shader" Line="1" Column="1" />
+      <File FileName="Assets\Scripts\Actors\ActorController.cs" Line="1" Column="1" />
+      <File FileName="Assets\Scripts\Effects\DeathEffect.cs" Line="1" Column="1" />
+      <File FileName="Assets\TextControl.js" Line="1" Column="1" />
+    </Files>
+  </MonoDevelop.Ide.Workbench>
   <MonoDevelop.Ide.DebuggingService.Breakpoints>
     <BreakpointStore>
       <Breakpoint file="/Users/Ru/Documents/Pherg/PhergCorp/Turreted/trunk/Turreted/Unity/Turreted/Assets/Scripts/Actors/ActorController.cs" line="55" />
