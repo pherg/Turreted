@@ -20,8 +20,11 @@ public class DeathEffect : MonoBehaviour
 		if (mTimeLapsed >= LifeTime)
 		{
 			Destroy (gameObject);
+			
+			Application.LoadLevel(0);
 			return;
 		}
+		
 		transform.RotateAround(new Vector3(0, 1, 0), -RotationSpeed);
 		transform.localScale = new Vector3(
 			transform.localScale.x + ScaleSpeed,
