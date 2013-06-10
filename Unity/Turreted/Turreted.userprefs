@@ -1,11 +1,6 @@
 ﻿<Properties>
   <MonoDevelop.Ide.Workspace ActiveConfiguration="Debug" />
-  <MonoDevelop.Ide.Workbench ActiveDocument="Assets\Scripts\TextControl.js">
-    <Files>
-      <File FileName="Assets\Scripts\TextControl.js" Line="7" Column="2" />
-      <File FileName="Assets\Resources\Shaders\ToonShader 2.0.shader" Line="1" Column="1" />
-    </Files>
-  </MonoDevelop.Ide.Workbench>
+  <MonoDevelop.Ide.Workbench />
   <MonoDevelop.Ide.DebuggingService.Breakpoints>
     <BreakpointStore>
       <Breakpoint file="C:\Code\GitHub\Turreted\Unity\Turreted\Assets\Scripts\TextControl.js" line="3" />
