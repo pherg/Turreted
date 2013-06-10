@@ -18,7 +18,10 @@ public class ActorController : MonoBehaviour
 	{
 		float newScale = (mActorModel.HealthPoints/mActorModel.StartingHealth 
 						* (mActorModel.InitialScale - mActorModel.MinScale)) + mActorModel.MinScale;
-		
+		if (newScale < mActorModel.MinScale)
+		{
+			newScale = mActorModel.MinScale;
+		}
 		transform.localScale = new Vector3(newScale, newScale, newScale);
 	}
 	
