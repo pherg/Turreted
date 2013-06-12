@@ -1,5 +1,7 @@
 var isQuitButton = false;
 
+public var Level;
+
 function OnMouseEnter ()
 {
 	renderer.material.color = Color.green;
@@ -18,6 +20,6 @@ function OnMouseUp ()
 	}
 	else
 	{
-		Application.LoadLevel(1);
+		Application.LoadLevel(Level);
 	}
 }
