@@ -4,6 +4,7 @@ using System.Collections;
 public class GameEntry : MonoBehaviour 
 {
 	public UnityEngine.Object SpawnController;
+	public UnityEngine.Object Player;
 	
 	private GameObject mPlayer;
 	private ScoreTextfield mScoreTextfield;
@@ -26,7 +27,7 @@ public class GameEntry : MonoBehaviour
 	
 	void StartGame()
 	{
-		mPlayer = Instantiate(Resources.Load("Actors/Player")) as GameObject;
+		mPlayer = Instantiate(Player) as GameObject;
 		Instantiate(SpawnController);
 		GameObject score = Instantiate(Resources.Load ("GUI/ScoreGUI")) as GameObject;
 		mScoreTextfield = score.GetComponent("ScoreTextfield") as ScoreTextfield;
