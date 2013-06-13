@@ -49,21 +49,50 @@ public class ActorController : MonoBehaviour
 				{
 					am.ParentActor.InformOfKill(mActorModel);
 				}
-				Destroy (mActorModel);
+				Death (am);
 			}
 		}
 	}
 	
-	void Death()
+	void Death(ActorModel killer=null)
 	{
 		// Immediately turn off collision to avoid colliding with the effects you are spawning.
 		this.collider.enabled = false;
 		if (DeathEffect)
 		{
+			// Instantiate death effect.
+			// Place at center of model that just died.
 			GameObject effect = Instantiate(DeathEffect) as GameObject;
 			effect.transform.position += transform.position;
+			if (killer != null)
+			{
+				// This code is used for bombs right now.
+				// If the actor the death effect is an actor
+				// we are assuming it is a bomb explosion.
+				// To ensure the explosion gives health to the right
+				// actor we check if the killer has a parent and parent
+				// either the parent of the kilelr or the killer.
+				// This will make sure whatever the explosion kills 
+				// will be contributed to the actor that triggered
+				// the explosion.
+				ActorModel am = effect.GetComponent("ActorModel") as ActorModel;
+				if (am != null)
+				{
+					if (killer.ParentActor != null)
+					{
+						am.ParentActor = killer.ParentActor;
+					}
+					else
+					{
+						am.ParentActor = killer;
+					}
+					Debug.Log ("Setting parent to: " + am.ParentActor.Name);
+				}
+			}
 		}
-		Debug.Log ("Destroying: " + mActorModel.Name);
 		Destroy(gameObject);
 	}
 }
+
+
+	
