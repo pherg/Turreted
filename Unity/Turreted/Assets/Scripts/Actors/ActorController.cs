@@ -3,23 +3,16 @@ using System.Collections;
 
 public class ActorController : MonoBehaviour 
 {
-	public string DeathEffect = "Effects/DeathEffect";
+	public UnityEngine.Object DeathEffect;
 	private ActorModel mActorModel;
 	void Start () 
 	{
 		mActorModel = gameObject.GetComponent("ActorModel") as ActorModel;
 		if (mActorModel == null)
 		{
+			Debug.Log ("FOOOOO");
 			throw new MissingComponentException("Unable to find model for this actor.");
 		}
-	}
-	
-	void Update()
-	{
-		float newScale = (mActorModel.HealthPoints/mActorModel.StartingHealth 
-						* (mActorModel.InitialScale - mActorModel.MinScale)) + mActorModel.MinScale;
-		newScale = Mathf.Max (newScale, mActorModel.MinScale);
-		transform.localScale = new Vector3(newScale, newScale, newScale);
 	}
 	
 	void FixedUpdate () 
@@ -34,8 +27,18 @@ public class ActorController : MonoBehaviour
 	
 	void OnCollisionEnter(Collision collision)
 	{
-		ActorModel am = collision.collider.gameObject.GetComponent("ActorModel") as ActorModel;
-		if (am && mActorModel.Team != am.Team)
+		Collide(collision.collider);
+	}
+	
+	void OnTriggerEnter(Collider collider)
+	{
+		Collide(collider);
+	}
+	
+	void Collide(Collider collider)
+	{
+		ActorModel am = collider.gameObject.GetComponent("ActorModel") as ActorModel;
+		if (am != null && mActorModel.Team != am.Team)
 		{
 			//Debug.Log(am.Name + " dealing " + am.OnCollisionDamage + " damage to " + mActorModel.Name);
 			mActorModel.AlterHealthPoints(-am.OnCollisionDamage);
@@ -46,14 +49,21 @@ public class ActorController : MonoBehaviour
 				{
 					am.ParentActor.InformOfKill(mActorModel);
 				}
+				Destroy (mActorModel);
 			}
 		}
 	}
 	
 	void Death()
 	{
-		GameObject effect = Instantiate(Resources.Load(DeathEffect)) as GameObject;
-		effect.transform.position += transform.position;
+		// Immediately turn off collision to avoid colliding with the effects you are spawning.
+		this.collider.enabled = false;
+		if (DeathEffect)
+		{
+			GameObject effect = Instantiate(DeathEffect) as GameObject;
+			effect.transform.position += transform.position;
+		}
+		Debug.Log ("Destroying: " + mActorModel.Name);
 		Destroy(gameObject);
 	}
 }

@@ -30,17 +30,17 @@ public class BulletCreation : MonoBehaviour
 		//Set the projectiles color, this will need to be adjusted if/when we get inner/core colors added
 		renderer.material.SetColor("_Color", am.ParentActor.renderer.material.GetColor("_Color"));
 		light.color = am.ParentActor.renderer.material.GetColor("_Color");
-		light.range = am.ParentActor.GetScale() * LIGHT_PERCENTAGE;
+		light.range = am.ParentActor.Scale * LIGHT_PERCENTAGE;
 		
 		//@TODO:
 		//Do all the fun calculations for decrementing health on bullet creation based on bullet size
 		
 		//Change bullet size based on player size
 		//Make size potentially based on color value and not player size?
-		am.InitialScale = am.ParentActor.GetScale() * SIZE_PERCENTAGE;
+		am.Scale = am.ParentActor.Scale * SIZE_PERCENTAGE;
 		
 		//Bullet momentum based on player size
-		rigidbody.mass = am.ParentActor.GetScale() * MASS_PERCENTAGE;
+		rigidbody.mass = am.ParentActor.Scale * MASS_PERCENTAGE;
 		
 		//Change bullet damage based on player color
 		//Change bullet speed based on player color

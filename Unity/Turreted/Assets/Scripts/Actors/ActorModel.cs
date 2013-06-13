@@ -11,9 +11,6 @@ public class ActorModel : MonoBehaviour
 	// Enemies are currently 2.
 	public float Team = 2;
 	
-	public float InitialScale = 5.0f;
-	public float MinScale = 1.0f;
-	
 	public float OnCollisionDamage = 1.0f;
 	
 	public float HealthCostPerBullet = 10.0f;
@@ -22,11 +19,19 @@ public class ActorModel : MonoBehaviour
 	
 	private float mHealthPoints;
 	
+	private Vector3 mInitialTransformScale;
+	private float mScale = 1;
+	
 	private ActorModel mParentActor;
 	
 	void Awake () 
 	{
 		mHealthPoints = StartingHealth;
+	}
+	
+	void Start()
+	{
+		mInitialTransformScale = transform.localScale;
 	}
 	
 	void Update () 
@@ -64,9 +69,14 @@ public class ActorModel : MonoBehaviour
 		AlterHealthPoints(killedActor.HealthGainPerKill);
 	}
 	
-	public float GetScale()
+	public Vector3 TransformScale
 	{
-		float actorScale = (HealthPoints/StartingHealth * (InitialScale - MinScale)) + MinScale;
-		return actorScale;
+		get { return mInitialTransformScale; }
+	}
+	
+	public float Scale
+	{
+		get { return mScale; }
+		set { mScale = value; } 
 	}
 }
