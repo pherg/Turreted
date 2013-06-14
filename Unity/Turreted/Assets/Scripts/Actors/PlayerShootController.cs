@@ -7,6 +7,8 @@ public class PlayerShootController : MonoBehaviour
 	
 	public UnityEngine.Object Shield;
 	
+	private int BulletLayer;
+	
 	private ActorModel mPlayerModel;
 	
 	void Start () 
@@ -40,6 +42,8 @@ public class PlayerShootController : MonoBehaviour
 				// Ignore collision with other bullets.
 				Physics.IgnoreLayerCollision(bullet.layer, mPlayerModel.gameObject.layer);
 				
+				BulletLayer = bullet.layer;
+				
 				Vector3 worldPointFromScreenPoint = Camera.mainCamera.ScreenToWorldPoint(
 					new Vector3 (Input.mousePosition.x, Input.mousePosition.y,Camera.mainCamera.nearClipPlane));
 				
@@ -60,7 +64,11 @@ public class PlayerShootController : MonoBehaviour
 			ActorModel shieldModel = shield.GetComponent("ActorModel") as ActorModel;
 			shieldModel.ParentActor = GetComponent("ActorModel") as ActorModel;
 			
+			// ignore the dude
 			Physics.IgnoreLayerCollision(shield.layer, mPlayerModel.gameObject.layer);
+			
+			//... and his bullets
+			Physics.IgnoreLayerCollision(shield.layer, BulletLayer);
 			
 			if (shieldModel == null)
 			{
