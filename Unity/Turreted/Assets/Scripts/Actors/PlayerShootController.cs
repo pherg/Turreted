@@ -7,7 +7,7 @@ public class PlayerShootController : MonoBehaviour
 	
 	public UnityEngine.Object Shield;
 	
-	private int BulletLayer;
+	private int BulletLayer = 69;
 	
 	private ActorModel mPlayerModel;
 	
@@ -36,13 +36,15 @@ public class PlayerShootController : MonoBehaviour
 				{
 					throw new MissingComponentException("ActorModel not found on bullet");
 				}
+				
+				// manually set the layer you want to use for the bullet (prevents chicken and egg issue with shield)
+				bullet.layer = BulletLayer;
+				
 				bullet.transform.position += transform.position;
 				// Ignore collision with player
 				Physics.IgnoreLayerCollision(bullet.layer, mPlayerModel.gameObject.layer);
 				// Ignore collision with other bullets.
 				Physics.IgnoreLayerCollision(bullet.layer, mPlayerModel.gameObject.layer);
-				
-				BulletLayer = bullet.layer;
 				
 				Vector3 worldPointFromScreenPoint = Camera.mainCamera.ScreenToWorldPoint(
 					new Vector3 (Input.mousePosition.x, Input.mousePosition.y,Camera.mainCamera.nearClipPlane));
