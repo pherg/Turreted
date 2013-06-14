@@ -5,6 +5,8 @@ public class PlayerShootController : MonoBehaviour
 {
 	public UnityEngine.Object Bullet;
 	
+	public UnityEngine.Object Shield;
+	
 	private ActorModel mPlayerModel;
 	
 	void Start () 
@@ -50,5 +52,22 @@ public class PlayerShootController : MonoBehaviour
 				mPlayerModel.AlterHealthPoints(-bulletModel.HealthCostPerBullet);
             }
         }
+		
+		if (Input.GetButtonDown ("Fire2"))
+		{
+			GameObject shield = Instantiate (Shield) as GameObject;
+			
+			ActorModel shieldModel = shield.GetComponent("ActorModel") as ActorModel;
+			shieldModel.ParentActor = GetComponent("ActorModel") as ActorModel;
+			
+			Physics.IgnoreLayerCollision(shield.layer, mPlayerModel.gameObject.layer);
+			
+			if (shieldModel == null)
+			{
+				throw new MissingComponentException("ActorModel not found on shield");
+			}
+			
+			//shield.transform.position += transform.position;			
+		}
     }
 }
