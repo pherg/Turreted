@@ -7,7 +7,10 @@ public class PlayerShootController : MonoBehaviour
 	
 	public UnityEngine.Object Shield;
 	
-	private int BulletLayer = 69;
+	private bool bShieldActivated = false;
+	
+	private int BulletLayer = 29;
+	private int ShieldLayer = 30;
 	
 	private ActorModel mPlayerModel;
 	
@@ -41,10 +44,11 @@ public class PlayerShootController : MonoBehaviour
 				bullet.layer = BulletLayer;
 				
 				bullet.transform.position += transform.position;
+				
 				// Ignore collision with player
 				Physics.IgnoreLayerCollision(bullet.layer, mPlayerModel.gameObject.layer);
 				// Ignore collision with other bullets.
-				Physics.IgnoreLayerCollision(bullet.layer, mPlayerModel.gameObject.layer);
+				Physics.IgnoreLayerCollision(bullet.layer, ShieldLayer);
 				
 				Vector3 worldPointFromScreenPoint = Camera.mainCamera.ScreenToWorldPoint(
 					new Vector3 (Input.mousePosition.x, Input.mousePosition.y,Camera.mainCamera.nearClipPlane));
@@ -61,23 +65,30 @@ public class PlayerShootController : MonoBehaviour
 		
 		if (Input.GetButtonDown ("Fire2"))
 		{
-			GameObject shield = Instantiate (Shield) as GameObject;
-			
-			ActorModel shieldModel = shield.GetComponent("ActorModel") as ActorModel;
-			shieldModel.ParentActor = GetComponent("ActorModel") as ActorModel;
-			
-			// ignore the dude
-			Physics.IgnoreLayerCollision(shield.layer, mPlayerModel.gameObject.layer);
-			
-			//... and his bullets
-			Physics.IgnoreLayerCollision(shield.layer, BulletLayer);
-			
-			if (shieldModel == null)
+			if(!bShieldActivated)
 			{
-				throw new MissingComponentException("ActorModel not found on shield");
+				bShieldActivated = true;
+				
+				GameObject shield = Instantiate (Shield) as GameObject;
+				
+				ActorModel shieldModel = shield.GetComponent("ActorModel") as ActorModel;
+				shieldModel.ParentActor = GetComponent("ActorModel") as ActorModel;
+				
+				shield.layer = ShieldLayer;
+				
+				// ignore the dude
+				Physics.IgnoreLayerCollision(shield.layer, mPlayerModel.gameObject.layer);
+				
+				//... and his bullets
+				Physics.IgnoreLayerCollision(shield.layer, BulletLayer);
+				
+				if (shieldModel == null)
+				{
+					throw new MissingComponentException("ActorModel not found on shield");
+				}
+				
+				//shield.transform.position += transform.position;		
 			}
-			
-			//shield.transform.position += transform.position;			
 		}
     }
 }
