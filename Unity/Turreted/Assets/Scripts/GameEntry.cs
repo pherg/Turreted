@@ -28,6 +28,10 @@ public class GameEntry : MonoBehaviour
 	void StartGame()
 	{
 		mPlayer = Instantiate(Player) as GameObject;
+		
+		// hey - we can always load levels directly
+		// GameObject level = Instantiate(Resources.Load ("SpawnControllers/LevelOne")) as GameObject;		
+		
 		Instantiate(SpawnController);
 		GameObject score = Instantiate(Resources.Load ("GUI/ScoreGUI")) as GameObject;
 		mScoreTextfield = score.GetComponent("ScoreTextfield") as ScoreTextfield;
