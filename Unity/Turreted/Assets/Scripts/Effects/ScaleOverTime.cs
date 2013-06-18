@@ -39,9 +39,7 @@ public class ScaleOverTime : MonoBehaviour
 			// Set scale on the model. 
 			// May turn into a problem if multiple entities are fighting over scale.
 			mActorModel.Scale = mTimeSpent / LengthOfTime * FinalScale + 1;
-			transform.localScale = new Vector3( mActorModel.TransformScale.x * mActorModel.Scale, 
-												mActorModel.TransformScale.y * mActorModel.Scale,
-												mActorModel.TransformScale.z * mActorModel.Scale);
+
 			mTimeSpent += Time.deltaTime;
 			// Waiting one frame and run again.
 			yield return 1;
