@@ -13,5 +13,33 @@ public class GameEntry : MonoBehaviour
 		lc.Constructor(Player, SpawnController); //LevelController(null, null);
 	}
 	
-
+	// Update is called once per frame
+	void Update () 
+	{
+		if (mPlayer == null && mScoreTextfield != null)
+		{
+			mScoreTextfield.StopTrackingScore();
+		}
+	}
+	
+	void StartGame()
+	{
+		mPlayer = Instantiate(Player) as GameObject;	
+		
+		// hey - we can always load levels directly
+		// GameObject level = Instantiate(Resources.Load("SpawnControllers/LevelOne")) as GameObject;		
+		
+		// which means we can also do this
+		// mPlayer = Instantiate(Resources.Load("Actors/Player")) as GameObject;
+		
+		Instantiate(SpawnController);
+		GameObject score = Instantiate(Resources.Load ("GUI/ScoreGUI")) as GameObject;
+		mScoreTextfield = score.GetComponent("ScoreTextfield") as ScoreTextfield;
+		mScoreTextfield.TrackScore();
+	}
+	
+	void BootstrapScene()
+	{		
+		Instantiate(Resources.Load("Actors/Floor"));
+	}
 }
