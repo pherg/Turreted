@@ -1,7 +1,7 @@
 using UnityEngine;
 using System.Collections;
 
-public class PlayerShootControllerNew : MonoBehaviour 
+public class PlayerShootControllerV2 : MonoBehaviour 
 {
 	public UnityEngine.Object Bullet;
 	
@@ -10,7 +10,14 @@ public class PlayerShootControllerNew : MonoBehaviour
 	private const float COLOR_MAX_VALUE = 255;
 	public float MaxShotCostReductionMultiplierFromBlue = 0.5f;
 	
+	private ColorCombatComponent mColorCombatComponent;
+	
 	private int BulletLayer = 15;
+	
+	public void Awake()
+	{
+		mColorCombatComponent = GetComponent("ColorCombatComponent") as ColorCombatComponent;
+	}
 	
 	// Update is called once per frame
     void Update () 
@@ -22,21 +29,47 @@ public class PlayerShootControllerNew : MonoBehaviour
             if (Physics.Raycast (ray)) 
 			{
                 GameObject bullet = Instantiate (Bullet) as GameObject;
-				AttackCombatModel attackCombatModel = bullet.GetComponent("AttackCombatModel") as AttackCombatModel;
+				CombatAttackModel attackCombatModel = bullet.GetComponent("CombatAttackModel") as CombatAttackModel;
 				if (attackCombatModel == null)
 				{
-					throw new MissingComponentException("AttackCombatModel not found on bullet");
+					throw new MissingComponentException("CombatAttackModel not found on bullet");
 				}
+				
+				BulletMovementNew bulletMovement = bullet.GetComponent("BulletMovementNew") as BulletMovementNew;
+				if (bulletMovement == null)
+				{
+					throw new MissingComponentException("Unable to find BulletMovementNew on bullet.");
+				}
+				
+				ActorModel bulletActorModel = bullet.GetComponent("ActorModel") as ActorModel;
+				if (bulletActorModel == null)
+				{
+					throw new MissingComponentException("Unable to find ActorModel on bullet.");
+				}
+				
 				
 				// Setup bullet.
 				// Set parent for bullet
-				attackCombatModel.OwnerGameObject = gameObject;
+				attackCombatModel.Owner = gameObject;
 				// manually set the layer you want to use for the bullet (prevents chicken and egg issue with shield)
 				attackCombatModel.gameObject.layer = BulletLayer;
 				
 				attackCombatModel.transform.position += transform.position;
 				
-				attackCombatModel.OwnerGameObject = gameObject;
+				// Use color component to alter properties of bullet
+				if (mColorCombatComponent)
+				{
+					// Size
+					Debug.Log ("Pre Scale: " + bulletActorModel.Scale);
+					Debug.Log ("Scale scale: " + mColorCombatComponent.GetSizeScale());
+					Debug.Log ("Pre Transform Scale: " + bulletActorModel.transform.localScale.ToString());
+					bulletActorModel.Scale *= mColorCombatComponent.GetSizeScale();
+					Debug.Log ("Post Transform Scale: " + bulletActorModel.transform.localScale.ToString());
+					Debug.Log ("Post Scale: " +  bulletActorModel.Scale);
+					
+					// Speed
+					bulletMovement.Speed *= mColorCombatComponent.GetSpeedScale();
+				}
 				
 				// TODO: Move this to a higher level object to do once.
 				// Ignore collision with player
@@ -48,24 +81,8 @@ public class PlayerShootControllerNew : MonoBehaviour
 				Vector3 worldPointFromScreenPoint = Camera.mainCamera.ScreenToWorldPoint(
 					new Vector3 (Input.mousePosition.x, Input.mousePosition.y,Camera.mainCamera.nearClipPlane));
 				Vector3 direction = new Vector3(worldPointFromScreenPoint.x, 0, worldPointFromScreenPoint.z);
-				BulletMovementNew bulletMovement = bullet.GetComponent("BulletMovementNew") as BulletMovementNew;
-				if (bulletMovement == null)
-				{
-					throw new MissingComponentException("Unable to find BulletMovementNew on bullet.");
-				}
-				bulletMovement.SetTarget(direction);
 				
-				// Decrease health on shooter
-				// Shot cost is reduced depending on what percent of the total color is blue:
-				// First build a vector, then normalize it, this will give us the amount that 
-				// blue contributes to the total color value.
-//				Vector3 colorVector = new Vector3(	mPlayerActorModel.ColorOfActor.r/COLOR_MAX_VALUE, 
-//													mPlayerActorModel.ColorOfActor.g/COLOR_MAX_VALUE, 
-//													mPlayerActorModel.ColorOfActor.b/COLOR_MAX_VALUE);
-//				colorVector.Normalize();
-//				float shotCostReduction = 1 - (colorVector.z * MaxShotCostReductionMultiplierFromBlue);
-				//Debug.Log ("Color.b: " + mPlayerModel.ColorOfActor.b + " shotCostReduction: " + shotCostReduction + " final cost: " + -bulletModel.ShotCost * shotCostReduction);
-				//mPlayerCombatModel.AlterHealthPoints(-bulletCombatModel.TotalHealthCostPerBullet() -mPlayerCombatModel.TotalHealthCostPerBullet());
+				bulletMovement.SetTarget(direction);
             }
         }
 		

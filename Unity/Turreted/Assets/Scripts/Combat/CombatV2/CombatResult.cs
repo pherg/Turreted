@@ -8,4 +8,6 @@ public class CombatResult
 	
 	public float DamageToReceiver = 0;
 	public float DamageToAttacker = 0;
+	
+	public Vector3 ColorChangeAttacker;
 }

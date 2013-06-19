@@ -5,7 +5,7 @@ public class ActorController : MonoBehaviour
 {
 	public UnityEngine.Object DeathEffect;
 	private ActorModel mActorModel;
-	void Start () 
+	void Awake () 
 	{
 		mActorModel = gameObject.GetComponent("ActorModel") as ActorModel;
 		if (mActorModel == null)
@@ -91,6 +91,13 @@ public class ActorController : MonoBehaviour
 			}
 		}
 		Destroy(gameObject);
+	}
+	
+	public void ScaleChange(float scale)
+	{
+		transform.localScale = new Vector3(	mActorModel.TransformScale.x * scale,
+											mActorModel.TransformScale.y * scale,
+											mActorModel.TransformScale.z * scale);
 	}
 }
 

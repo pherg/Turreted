@@ -15,6 +15,12 @@ public class CombatReceiverComponent : MonoBehaviour
 		{
 			throw new MissingComponentException("Unable to find CombatAttackModel.  Spawning a default.");
 		}
+		
+		mCombatReceiverModel.HealthPoints = mCombatReceiverModel.InitialHealthPoints;
+		if (renderer && renderer.material)
+		{
+			renderer.material.color = mCombatReceiverModel.BaseColor;
+		}
 	}
 	
 	public void FixedUpdate()
@@ -29,11 +35,17 @@ public class CombatReceiverComponent : MonoBehaviour
 	
 	public void ReceiveCombatResult(CombatResult combatResult)
 	{
-		Debug.Log ("RECEIVER: ReceiveCombatResult");
+		mCombatReceiverModel.AlterHealthPoints(-combatResult.DamageToReceiver);
+		
 		// Monitor health for killing actor.
 		if (mCombatReceiverModel.HealthPoints <= 0)
 		{
 			mCombatReceiverModel.MarkedForDeath = true;
 		}
+	}
+	
+	public void AttackCombatResult(CombatResult combatResult)
+	{
+		mCombatReceiverModel.AlterHealthPoints(-combatResult.DamageToAttacker);
 	}
 }

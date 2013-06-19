@@ -27,10 +27,6 @@ public class ActorModel : MonoBehaviour
 	void Awake () 
 	{
 		mHealthPoints = StartingHealth;
-	}
-	
-	void Start()
-	{
 		mInitialTransformScale = transform.localScale;
 	}
 	
@@ -77,6 +73,10 @@ public class ActorModel : MonoBehaviour
 	public float Scale
 	{
 		get { return mScale; }
-		set { mScale = value; } 
+		set 
+		{ 
+			mScale = value;
+			SendMessage ("ScaleChange", mScale, SendMessageOptions.DontRequireReceiver); 
+		} 
 	}
 }

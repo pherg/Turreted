@@ -17,10 +17,7 @@ public class CombatReceiverModel : MonoBehaviour
 	
 	public float DamageToAttacker = 0;
 	
-	public void Awake()
-	{
-		mHealthPoints = InitialHealthPoints;
-	}
+	public Color BaseColor;
 	
 	public void AlterHealthPoints(float delta)
 	{
@@ -30,5 +27,6 @@ public class CombatReceiverModel : MonoBehaviour
 	public float HealthPoints
 	{
 		get { return mHealthPoints; }
+		set { mHealthPoints = value; }
 	}
 }
