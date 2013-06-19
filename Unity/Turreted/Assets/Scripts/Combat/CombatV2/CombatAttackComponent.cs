@@ -41,45 +41,40 @@ public class CombatAttackComponent : MonoBehaviour
 			CombatReceiverModel receiverModel = collider.gameObject.GetComponent("CombatReceiverModel") as CombatReceiverModel;
 			if (receiverModel != null && receiverModel.IsActive)
 			{
-				// Resolve a combat result and move on.
-				CombatResult combatResult = ResolveAttackCollision(mCombatAttackModel, receiverModel);
-				if(combatResult != null)
+				// Check masks to see if these should interact.
+				if(mCombatAttackModel.CollisionMask == receiverModel.CollisionMask)
 				{
-					receiverModel.SendMessage("ReceiveCombatResult", combatResult, SendMessageOptions.DontRequireReceiver);
-					SendMessage("AttackCombatResult", combatResult, SendMessageOptions.DontRequireReceiver);
-					// Inform the owner of the attack success.
-					if (mCombatAttackModel.Owner)
-					{
-						mCombatAttackModel.Owner.SendMessage("AttackCombatResult", combatResult, SendMessageOptions.DontRequireReceiver);
-					}
+					// An attack collision has occured, resolve it.
+					ResolveAttackCollision(mCombatAttackModel, receiverModel);
 				}
 			}
 		}
 	}
 	
 	// This is the main controller for combat.  It arbitrates the interaction, records what took place
-	// into a combat result, and sends out a message to both parties about the combat result.  This contorller
-	// will set all the model values, and send out the message, which would be picked up by view controllers
-	// to do things like "flash on receiving damage".  Perform an attack on hit.
-	private CombatResult ResolveAttackCollision(CombatAttackModel attack, CombatReceiverModel receiver)
+	// into a combat result, and sends out a message to both parties about the combat result.
+	private void ResolveAttackCollision(CombatAttackModel attack, CombatReceiverModel receiver)
 	{
-		// Calculate collision based on masks
-		CombatResult result = null;
-		if(attack.CollisionMask == receiver.CollisionMask)
-		{
-			result = new CombatResult();
-			// Record models
-			result.Attack = attack;
-			result.Receiver = receiver;
-			
-			result.DamageToReceiver = attack.Damage;
-			
-			result.DamageToAttacker = receiver.DamageToAttacker;
-			
-			result.ColorChangeAttacker = DetermineColorLeech(attack, receiver, result.DamageToReceiver/receiver.InitialHealthPoints);
-		}
+		CombatResult result;
+
+		result = new CombatResult();
+		// Record models
+		result.Attack = attack;
+		result.Receiver = receiver;
 		
-		return result;
+		result.DamageToReceiver = attack.Damage;
+		
+		result.DamageToAttacker = receiver.DamageToAttacker;
+		
+		result.ColorChangeAttacker = DetermineColorLeech(attack, receiver, result.DamageToReceiver/receiver.InitialHealthPoints);
+	
+		receiver.SendMessage("ReceiveCombatResult", result, SendMessageOptions.DontRequireReceiver);
+		SendMessage("AttackCombatResult", result, SendMessageOptions.DontRequireReceiver);
+		// Inform the owner of the attack success.
+		if (attack.Owner)
+		{
+			attack.Owner.SendMessage("AttackCombatResult", result, SendMessageOptions.DontRequireReceiver);
+		}
 	}
 	
 	private Vector3 DetermineColorLeech(CombatAttackModel attack, CombatReceiverModel receiver, float percentDamageToTotalHealthDealt)
