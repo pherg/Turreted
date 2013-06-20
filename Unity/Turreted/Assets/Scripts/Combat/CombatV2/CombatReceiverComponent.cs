@@ -23,6 +23,11 @@ public class CombatReceiverComponent : MonoBehaviour
 		}
 	}
 	
+	public void Start()
+	{
+		mCombatReceiverModel.HealthPoints = mCombatReceiverModel.InitialHealthPoints;
+	}
+	
 	public void FixedUpdate()
 	{
 		// IF object is marked for death and not in GodMode send the death event.

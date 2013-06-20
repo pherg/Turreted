@@ -5,17 +5,30 @@ public class BulletMovementNew : MonoBehaviour
 {
 	//private BulletModel mBulletModel;
 	
-	public float Speed = 10;
+	public float BaseSpeed = 10;
 	
 	private Vector3 mDirection;
 	
+	private CombatAttackModel mCombatAttackModel;
+	
 	public void Awake()
 	{
+		mCombatAttackModel = gameObject.GetComponent("CombatAttackModel") as CombatAttackModel;
+	}
+	
+	private float DetermineSpeed()
+	{
+		float speed = BaseSpeed;
+		if (mCombatAttackModel)
+		{
+			speed *= mCombatAttackModel.BulletSpeedScale;
+		}
+		return speed;
 	}
 	
 	public void Start()
 	{
-		rigidbody.AddForce(mDirection * Speed, ForceMode.VelocityChange);
+		rigidbody.AddForce(mDirection * DetermineSpeed(), ForceMode.VelocityChange);
 	}
 	
 	public virtual void SetTarget(Vector3 target)

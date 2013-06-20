@@ -16,7 +16,7 @@ public class CombatAttackComponent : MonoBehaviour
 		
 		if (mCombatAttackModel == null)
 		{
-			throw new MissingComponentException("Unable to find CombatAttackModel.  Spawning a default.");
+			throw new MissingComponentException("Unable to find CombatAttackModel.");
 		}
 	}
 	

@@ -6,6 +6,9 @@ public class ColorCombatComponent : MonoBehaviour
 	public float DamageMultiplierMax = 5;
 	public float SpeedMultiplierMax = 5;
 	public float SizeMultiplierMax = 5;
+	public float HealthLossRateMultiplierMax = 5;
+	public float BulletMassMultiplierMax = 5;
+	public float ExplosionSizeMultiplierMax = 5;
 	
 	public void Awake()
 	{
@@ -32,19 +35,36 @@ public class ColorCombatComponent : MonoBehaviour
 		renderer.material.color = new Color(rFinal, gFinal, bFinal);
 	}
 	
+	// Color dominance variables
+	public float GetBulletSpeedScale()
+	{
+		return GreenDominance() * SpeedMultiplierMax + 1;
+	}
+	
+	public float GetBulletSizeScale()
+	{
+		return BlueDominance() * SizeMultiplierMax + 1;
+	}
+	
+	public float GetExplosionSizeScale()
+	{
+		return RedDominance() * ExplosionSizeMultiplierMax + 1;
+	}
+	
+	// Raw Color scale variables
+	public float GetHealthLossRateScale()
+	{
+		return renderer.material.color.g * HealthLossRateMultiplierMax;
+	}
+	
+	public float GetBulletMassScale()
+	{
+		return renderer.material.color.b * BulletMassMultiplierMax + 1;
+	}
+	
 	public float GetDamageScale()
 	{
-		return RedDominance() * DamageMultiplierMax;
-	}
-	
-	public float GetSpeedScale()
-	{
-		return GreenDominance() * SpeedMultiplierMax;
-	}
-	
-	public float GetSizeScale()
-	{
-		return BlueDominance() * SizeMultiplierMax;
+		return renderer.material.color.r * DamageMultiplierMax + 1;
 	}
 	
 	private float RedDominance()

@@ -39,9 +39,26 @@ public class SpawnController : MonoBehaviour
 		SimpleMovement moveScript = newActor.GetComponent("SimpleMovement") as SimpleMovement;
 		if (moveScript == null)
 		{
-			throw new MissingComponentException("TODO: Refactor MoveScripts to be BrainScripts.");
+			throw new MissingComponentException("TODO: Refactor MoveScripts.");
 		}
 		moveScript.SetTarget(new Vector3(0, 0, 0));
+		
+		float rand = Random.Range(1, 5);
+		// Just doing some goofy randomization.
+		ActorModelV2 am = newActor.GetComponent("ActorModelV2") as ActorModelV2;
+		if (am)
+		{
+			am.Scale *= rand;
+		}
+		if (rigidbody) 
+		{
+			rigidbody.mass *= rand;
+		}
+		CombatReceiverModel crm = newActor.GetComponent("CombatReceiverModel") as CombatReceiverModel;
+		if (crm)
+		{
+			crm.InitialHealthPoints *= rand;
+		}
 	}
 	
 	void ResetSpawnTimers()
