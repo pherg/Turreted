@@ -15,7 +15,8 @@ public class CombatReceiverModel : MonoBehaviour
 	public float InitialHealthPoints = 100;
 	private float mHealthPoints;
 	
-	public float DamageToAttacker = 0;
+	public float DamageToAttackerOnHit = 0;
+	public float DamageToAttackerOnKill = 0;
 	
 	public Color BaseColor;
 	

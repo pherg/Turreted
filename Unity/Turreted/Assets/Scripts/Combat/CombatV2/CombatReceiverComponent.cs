@@ -31,7 +31,7 @@ public class CombatReceiverComponent : MonoBehaviour
 	public void FixedUpdate()
 	{
 		// IF object is marked for death and not in GodMode send the death event.
-		if (mCombatReceiverModel.MarkedForDeath && !mCombatReceiverModel.GodMode)
+		if ((mCombatReceiverModel.MarkedForDeath || mCombatReceiverModel.HealthPoints <= 0) && !mCombatReceiverModel.GodMode)
 		{
 			SendMessage("DeathEvent", SendMessageOptions.DontRequireReceiver);
 			Destroy (gameObject);

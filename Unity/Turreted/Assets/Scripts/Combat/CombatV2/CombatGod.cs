@@ -106,10 +106,16 @@ public class CombatGod : MonoBehaviour
 		
 		result.DamageToReceiver = attack.Damage;
 		
-		result.DamageToAttacker = receiver.DamageToAttacker;
+		result.DamageToAttacker = receiver.DamageToAttackerOnHit;
 		
 		result.ColorChangeAttacker = DetermineColorLeech(attack, receiver, result.DamageToReceiver/receiver.InitialHealthPoints);
 	
+		// Determine if attack will kill the receiver.
+		if ( (receiver.HealthPoints - result.DamageToReceiver) <= 0)
+		{
+			result.DamageToAttacker += receiver.DamageToAttackerOnKill;
+		}
+		// Send result back to the receiver.
 		receiver.SendMessage("ReceiveCombatResult", result, SendMessageOptions.DontRequireReceiver);
 		attack.SendMessage("AttackCombatResult", result, SendMessageOptions.DontRequireReceiver);
 		// Inform the owner of the attack success.
