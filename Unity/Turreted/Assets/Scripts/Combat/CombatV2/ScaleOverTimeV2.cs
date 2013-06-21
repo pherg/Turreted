@@ -28,7 +28,7 @@ public class ScaleOverTimeV2 : MonoBehaviour
 			CleanUpAndDisable();
 			return;
 		}
-		mActorModel.Scale += ScalePerTick;
+		mActorModel.AlterScaleAddition(ScalePerTick);
 		mTotalScale+=ScalePerTick;
 		mTicks++;
 	}
@@ -37,7 +37,7 @@ public class ScaleOverTimeV2 : MonoBehaviour
 	{
 		if (RevertChangeOnFinish)
 		{
-			mActorModel.Scale -= mTicks*ScalePerTick;
+			mActorModel.AlterScaleAddition( -(mTicks*ScalePerTick));
 		}
 		this.enabled = false;
 	}

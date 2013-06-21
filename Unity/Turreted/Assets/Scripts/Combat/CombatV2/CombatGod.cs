@@ -3,6 +3,8 @@ using System.Collections;
 
 public class CombatGod : MonoBehaviour 
 {
+	
+	private const float SCALER = 0.33f;
 	private static int BulletLayer = 15;
 	
 	// Spawns an actor and sets up properties.  If provided with a CombatAttackModel it will
@@ -89,5 +91,62 @@ public class CombatGod : MonoBehaviour
 		Physics.IgnoreLayerCollision(bulletGO.layer, bulletGO.layer);
 		
 		return bulletGO;
+	}
+	
+	// This is the main controller for combat.  It arbitrates the interaction, records what took place
+	// into a combat result, and sends out a message to both parties about the combat result.
+	public static void ResolveAttackCollision(CombatAttackModel attack, CombatReceiverModel receiver)
+	{
+		CombatResult result;
+
+		result = new CombatResult();
+		// Record models
+		result.Attack = attack;
+		result.Receiver = receiver;
+		
+		result.DamageToReceiver = attack.Damage;
+		
+		result.DamageToAttacker = receiver.DamageToAttacker;
+		
+		result.ColorChangeAttacker = DetermineColorLeech(attack, receiver, result.DamageToReceiver/receiver.InitialHealthPoints);
+	
+		receiver.SendMessage("ReceiveCombatResult", result, SendMessageOptions.DontRequireReceiver);
+		attack.SendMessage("AttackCombatResult", result, SendMessageOptions.DontRequireReceiver);
+		// Inform the owner of the attack success.
+		if (attack.Owner)
+		{
+			attack.Owner.SendMessage("AttackCombatResult", result, SendMessageOptions.DontRequireReceiver);
+		}
+	}
+	
+	private static Vector3 DetermineColorLeech(CombatAttackModel attack, CombatReceiverModel receiver, float percentDamageToTotalHealthDealt)
+	{
+		Color attackerColor = new Color();
+		Color receiverColor = new Color();
+		// Make sure the attacker and receiver have colors
+		if (attack.Owner)
+		{
+			try
+			{
+				attackerColor = attack.Owner.renderer.material.color;
+				receiverColor = receiver.renderer.material.color;
+			}
+			catch
+			{
+				return new Vector3();
+			}
+		}
+	
+		//Player Property += ((Experience Property - Player Property) * SCALER) * ( Damage / Experiences Health)
+		float scale = SCALER * percentDamageToTotalHealthDealt;
+		//Debug.Log ("PercentDamageDealtToTotalHealth: " + percentDamageToTotalHealthDealt + " Scaler: " + SCALER + " Final: " + scale);
+		//Debug.Log("Receiver Color: " + receiverColor + " Attacker Color: " + attackerColor);
+		float rDifference = (receiverColor.r - attackerColor.r) * scale;
+		float gDifference = (receiverColor.g - attackerColor.g) * scale;
+		float bDifference = (receiverColor.b - attackerColor.b) * scale;
+		Vector3 colorChange = new Vector3( rDifference, gDifference, bDifference);
+		//Debug.Log ("Color Change: " + colorChange);
+		
+		return colorChange;
 	}
 }

@@ -54,7 +54,8 @@ public class CombatAttackModel : MonoBehaviour
 		set 
 		{ 
 			mExplosionScale = value; 
-			SendMessage("OnExplosionSizeScaleChange", mBulletMassScale, SendMessageOptions.DontRequireReceiver);
+			//Debug.Log ("mExplosionScale: " + mExplosionScale);
+			SendMessage("OnExplosionSizeScaleChange", mExplosionScale, SendMessageOptions.DontRequireReceiver);
 		}
 	}
 	public float HealthLossRateScale

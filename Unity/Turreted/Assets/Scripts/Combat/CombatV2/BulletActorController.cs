@@ -14,6 +14,6 @@ public class BulletActorController : ActorControllerV2
 	
 	public void OnBulletSizeScaleChange(float scale)
 	{
-		mActorModel.Scale *= scale;
+		mActorModel.AlterScaleMultiplier(scale);
 	}
 }

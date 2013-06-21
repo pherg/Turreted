@@ -43,7 +43,7 @@ public class SpawnController : MonoBehaviour
 		}
 		moveScript.SetTarget(new Vector3(0, 0, 0));
 		
-		float rand = Random.Range(1, 5);
+		float rand = 1;//Random.Range(1, 5);
 		// Just doing some goofy randomization.
 		ActorModelV2 am = newActor.GetComponent("ActorModelV2") as ActorModelV2;
 		if (am)

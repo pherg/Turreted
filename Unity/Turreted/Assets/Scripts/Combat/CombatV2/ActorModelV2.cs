@@ -30,7 +30,26 @@ public class ActorModelV2 : MonoBehaviour
 		set 
 		{ 
 			mScale = value;
-			SendMessage ("OnScaleChange", mScale, SendMessageOptions.DontRequireReceiver); 
+			SendScaleChangeHelper();
 		} 
+	}
+	
+	private float mScaleAddition = 0;
+	public void AlterScaleAddition(float delta)
+	{
+		mScaleAddition += delta;
+		SendScaleChangeHelper();
+	}
+	
+	private float mScaleMultiplier = 1;
+	public void AlterScaleMultiplier(float delta)
+	{
+		mScaleMultiplier += delta;
+		SendScaleChangeHelper();
+	}
+	
+	private void SendScaleChangeHelper()
+	{
+		SendMessage ("OnScaleChange", new OnScaleChangeEvent(mScale, mScaleAddition, mScaleMultiplier), SendMessageOptions.DontRequireReceiver); 
 	}
 }

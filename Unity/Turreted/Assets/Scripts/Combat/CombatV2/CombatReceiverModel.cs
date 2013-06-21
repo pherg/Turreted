@@ -22,6 +22,7 @@ public class CombatReceiverModel : MonoBehaviour
 	public void AlterHealthPoints(float delta)
 	{
 		mHealthPoints += delta;
+		SendMessage("OnHealthPointChange", new OnHealthPointChange(delta, mHealthPoints), SendMessageOptions.DontRequireReceiver);
 	}
 	
 	public float HealthPoints

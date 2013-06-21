@@ -28,10 +28,12 @@ public class ColorCombatComponent : MonoBehaviour
 	
 	private void AlterColor(Vector3 colorDelta)
 	{
-		float rFinal = Mathf.Clamp(renderer.material.color.r + colorDelta.x, 0, 255);
-		float gFinal = Mathf.Clamp(renderer.material.color.g + colorDelta.y, 0, 255);
-		float bFinal = Mathf.Clamp(renderer.material.color.b + colorDelta.z, 0, 255);
-		//Debug.Log ("Alter color: " + rFinal + ", " + gFinal + ", " + bFinal);
+		//Debug.Log ("Alter Color: " + colorDelta + " Pre Delta color: " + renderer.material.color.ToString("n3"));
+		// Clamp between 0-1 because that's how colors roll.
+		float rFinal = Mathf.Clamp(renderer.material.color.r + colorDelta.x, 0, 1);
+		float gFinal = Mathf.Clamp(renderer.material.color.g + colorDelta.y, 0, 1);
+		float bFinal = Mathf.Clamp(renderer.material.color.b + colorDelta.z, 0, 1);
+		//Debug.Log ("Final color: " + rFinal + ", " + gFinal + ", " + bFinal);
 		renderer.material.color = new Color(rFinal, gFinal, bFinal);
 	}
 	
