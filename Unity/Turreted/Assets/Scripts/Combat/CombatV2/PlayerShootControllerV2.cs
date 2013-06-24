@@ -43,8 +43,8 @@ public class PlayerShootControllerV2 : MonoBehaviour
 		{
 			GameObject shield = Instantiate (Shield) as GameObject;
 			
-			ActorModel shieldModel = shield.GetComponent("ActorModel") as ActorModel;
-			shieldModel.ParentActor = GetComponent("ActorModel") as ActorModel;
+			//ActorModel shieldModel = shield.GetComponent("ActorModel") as ActorModel;
+			//shieldModel.ParentActor = GetComponent("ActorModel") as ActorModel;
 			
 			// ignore the dude
 			Physics.IgnoreLayerCollision(shield.layer, gameObject.layer);
@@ -52,10 +52,10 @@ public class PlayerShootControllerV2 : MonoBehaviour
 			//... and his bullets
 			Physics.IgnoreLayerCollision(shield.layer, BulletLayer);
 			
-			if (shieldModel == null)
-			{
-				throw new MissingComponentException("ActorModel not found on shield");
-			}
+			//if (shieldModel == null)
+			//{
+			//	throw new MissingComponentException("ActorModel not found on shield");
+			//}
 			
 			//shield.transform.position += transform.position;			
 		}

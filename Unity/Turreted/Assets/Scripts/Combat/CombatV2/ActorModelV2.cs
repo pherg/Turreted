@@ -11,9 +11,6 @@ public class ActorModelV2 : MonoBehaviour
 	private Vector3 mInitialTransformScale;
 	private float mScale = 1;
 	
-	// Model
-	private ActorModel mParentActor;
-	
 	void Awake () 
 	{
 		mInitialTransformScale = transform.localScale;
