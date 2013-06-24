@@ -35,7 +35,8 @@ public class PlayerShootControllerV2 : MonoBehaviour
 					new Vector3 (Input.mousePosition.x, Input.mousePosition.y,Camera.mainCamera.nearClipPlane));
 				Vector3 direction = new Vector3(worldPointFromScreenPoint.x, 0, worldPointFromScreenPoint.z);
 				
-                CombatGod.SpawnBullet(Bullet, gameObject, new Vector3(), direction);
+                GameObject bulletGO = CombatGod.SpawnBullet(Bullet, gameObject, new Vector3(), direction);
+				bulletGO.renderer.material.color = gameObject.renderer.material.color;
             }
         }
 		
