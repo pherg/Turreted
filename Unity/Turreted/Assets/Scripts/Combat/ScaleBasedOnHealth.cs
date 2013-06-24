@@ -4,7 +4,7 @@ using System.Collections;
 public class ScaleBasedOnHealth : MonoBehaviour 
 {
 	private CombatReceiverModel mCombatReceiverModel;
-	private ActorModelV2 mActorModel;
+	private ActorModel mActorModel;
 	
 	public float MinScale = 1;
 	public float MaxScale = 2;
@@ -18,7 +18,7 @@ public class ScaleBasedOnHealth : MonoBehaviour
 			throw new MissingComponentException("Unable to find CombatReceiverModel.");
 		}
 		
-		mActorModel = GetComponent("ActorModelV2") as ActorModelV2;
+		mActorModel = GetComponent("ActorModel") as ActorModel;
 		if (mActorModel == null)
 		{
 			throw new MissingComponentException("Unable to find ActorModel.");

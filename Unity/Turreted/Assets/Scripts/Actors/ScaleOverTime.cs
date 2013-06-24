@@ -1,7 +1,7 @@
 using UnityEngine;
 using System.Collections;
 
-public class ScaleOverTimeV2 : MonoBehaviour 
+public class ScaleOverTime : MonoBehaviour 
 {
 	public float ScalePerTick = 0.1f;
 	public float Ticks = 24;
@@ -10,11 +10,11 @@ public class ScaleOverTimeV2 : MonoBehaviour
 	
 	private float mTicks = 0;
 	
-	private ActorModelV2 mActorModel;
+	private ActorModel mActorModel;
 	
 	public void Awake()
 	{
-		mActorModel = GetComponent("ActorModelV2") as ActorModelV2;
+		mActorModel = GetComponent("ActorModel") as ActorModel;
 		if (mActorModel == null)
 		{
 			throw new MissingComponentException("Unable to find ActorModel.");

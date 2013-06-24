@@ -1,12 +1,12 @@
 using UnityEngine;
 using System.Collections;
 
-public class ActorControllerV2 : MonoBehaviour 
+public class ActorController : MonoBehaviour 
 {
-	protected ActorModelV2 mActorModel;
+	protected ActorModel mActorModel;
 	void Awake () 
 	{
-		mActorModel = gameObject.GetComponent("ActorModelV2") as ActorModelV2;
+		mActorModel = gameObject.GetComponent("ActorModel") as ActorModel;
 		if (mActorModel == null)
 		{
 			throw new MissingComponentException("Unable to find model for this actor.");

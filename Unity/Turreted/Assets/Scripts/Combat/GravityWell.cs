@@ -44,7 +44,7 @@ public class GravityWell : MonoBehaviour
 										transform.position.y - positionOfOrbiter.y,
 										transform.position.z - positionOfOrbiter.z);
 		
-		float gravityStrength = GravitationalForce * orbiter.rigidbody.mass / direction.magnitude;
+		float gravityStrength = GravitationalForce * orbiter.rigidbody.mass / direction.sqrMagnitude;
 		orbiter.rigidbody.AddForce(	direction.x * gravityStrength,
 									direction.y * gravityStrength,
 									direction.z * gravityStrength,

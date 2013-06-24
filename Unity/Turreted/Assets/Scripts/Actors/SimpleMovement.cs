@@ -6,13 +6,13 @@ public class SimpleMovement : MonoBehaviour
 	public float Speed = 2.0f;
 	public float RandomizedHeading = 45.0f;
 	
-	private ActorModelV2 mActorModel;
+	private ActorModel mActorModel;
 	
 	protected Vector3 mDirection;
 	
 	void Start () 
 	{
-		mActorModel = gameObject.GetComponent("ActorModelV2") as ActorModelV2;
+		mActorModel = gameObject.GetComponent("ActorModel") as ActorModel;
 		if (mActorModel == null)
 		{
 			throw new MissingComponentException("Unable to find actor model on gameObject.");

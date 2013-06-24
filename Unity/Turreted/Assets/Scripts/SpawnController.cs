@@ -45,7 +45,7 @@ public class SpawnController : MonoBehaviour
 		
 		float rand = 1;//Random.Range(1, 5);
 		// Just doing some goofy randomization.
-		ActorModelV2 am = newActor.GetComponent("ActorModelV2") as ActorModelV2;
+		ActorModel am = newActor.GetComponent("ActorModel") as ActorModel;
 		if (am)
 		{
 			am.Scale *= rand;

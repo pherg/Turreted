@@ -1,7 +1,7 @@
 using UnityEngine;
 using System.Collections;
 
-public class PlayerShootControllerV2 : MonoBehaviour 
+public class PlayerShootController: MonoBehaviour 
 {
 	private static int BulletLayer = 15;
 

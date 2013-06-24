@@ -1,14 +1,14 @@
 using UnityEngine;
 using System.Collections;
 
-public class ExplosionActorController : ActorControllerV2 
+public class ExplosionActorController : ActorController
 {	
 	public void Awake()
 	{
-		mActorModel = GetComponent("ActorModelV2") as ActorModelV2;
+		mActorModel = GetComponent("ActorModel") as ActorModel;
 		if (mActorModel == null)
 		{
-			throw new MissingComponentException("Unable to find ActorModelV2");
+			throw new MissingComponentException("Unable to find ActorModel");
 		}
 	}
 	

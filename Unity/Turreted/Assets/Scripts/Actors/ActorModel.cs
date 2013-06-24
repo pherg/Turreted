@@ -1,7 +1,7 @@
 using UnityEngine;
 using System.Collections;
 
-public class ActorModelV2 : MonoBehaviour 
+public class ActorModel : MonoBehaviour 
 {
 	public string Name = "Unamed Actor";
 	
