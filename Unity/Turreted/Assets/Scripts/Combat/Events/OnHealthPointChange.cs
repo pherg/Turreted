@@ -1,7 +1,7 @@
 using UnityEngine;
 using System.Collections;
 
-public class OnHealthPointChange : BaseEvent
+public class OnHealthPointChange
 {
 	private float mChangeInHealthPoints = 0;
 	public float ChangeInHealthPoints
