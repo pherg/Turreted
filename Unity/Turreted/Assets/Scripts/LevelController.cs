@@ -38,6 +38,7 @@ public class LevelController : MonoBehaviour
 	{
 		mPlayer = Object.Instantiate(mPlayerEngineObject) as GameObject;
 		mSpawnController = Object.Instantiate(mSpawnControllerEngineObject) as GameObject;
+		if(mSpawnController) {}// THis is only here to make hte compiler stop bitching about that warning..
 		GameObject score = Object.Instantiate(Resources.Load ("GUI/ScoreGUI")) as GameObject;
 		mScoreTextfield = score.GetComponent("ScoreTextfield") as ScoreTextfield;
 		mScoreTextfield.TrackScore();

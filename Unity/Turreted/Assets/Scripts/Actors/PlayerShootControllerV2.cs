@@ -10,16 +10,7 @@ public class PlayerShootControllerV2 : MonoBehaviour
 	public UnityEngine.Object Shield;
 	
 	private const float COLOR_MAX_VALUE = 255;
-	public float MaxShotCostReductionMultiplierFromBlue = 0.5f;
-	
-	private ColorCombatComponent mColorCombatComponent;
-	
-	
-	
-	public void Awake()
-	{
-		mColorCombatComponent = GetComponent("ColorCombatComponent") as ColorCombatComponent;
-	}
+	public float MaxShotCostReductionMultiplierFromBlue = 0.5f;	
 	
 	// Update is called once per frame
     void Update () 

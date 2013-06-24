@@ -49,6 +49,5 @@ public class GravityWell : MonoBehaviour
 									direction.y * gravityStrength,
 									direction.z * gravityStrength,
 									ForceMode.Acceleration);
-		Debug.Log ("Applying gravitation force.");
 	}
 }
