@@ -2,9 +2,7 @@ using UnityEngine;
 using System.Collections;
 
 public class BulletMovementNew : MonoBehaviour
-{
-	//private BulletModel mBulletModel;
-	
+{	
 	public float BaseSpeed = 10;
 	
 	private Vector3 mDirection;
@@ -39,5 +37,8 @@ public class BulletMovementNew : MonoBehaviour
 
 		Vector3 direction = Quaternion.AngleAxis(0, Vector3.up) * initDirection;
 		mDirection = direction;
+		
+		
+		transform.LookAt(new Vector3(0, -100, 0), initDirection);
 	}
 }

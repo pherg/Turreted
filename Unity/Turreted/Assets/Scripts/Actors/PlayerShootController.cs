@@ -3,7 +3,7 @@ using System.Collections;
 
 public class PlayerShootController: MonoBehaviour 
 {
-	private static int BulletLayer = 15;
+	public static int BulletLayer = 15;
 
 	public UnityEngine.Object Bullet;
 	
@@ -11,6 +11,11 @@ public class PlayerShootController: MonoBehaviour
 	
 	private const float COLOR_MAX_VALUE = 255;
 	public float MaxShotCostReductionMultiplierFromBlue = 0.5f;	
+	
+	public void Awake()
+	{
+		//gameObject.layer = (int)PhysicsUtil.CollisionLayers.Player;
+	}
 	
 	// Update is called once per frame
     void Update () 
@@ -39,10 +44,10 @@ public class PlayerShootController: MonoBehaviour
 			//shieldModel.ParentActor = GetComponent("ActorModel") as ActorModel;
 			
 			// ignore the dude
-			Physics.IgnoreLayerCollision(shield.layer, gameObject.layer);
+			//Physics.IgnoreLayerCollision(shield.layer, gameObject.layer);
 			
 			//... and his bullets
-			Physics.IgnoreLayerCollision(shield.layer, BulletLayer);
+			//Physics.IgnoreLayerCollision(shield.layer, BulletLayer);
 			
 			//if (shieldModel == null)
 			//{

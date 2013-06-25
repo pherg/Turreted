@@ -5,6 +5,8 @@ public class GravityWell : MonoBehaviour
 {
 	public float GravitationalForce = 10;
 	
+	public bool AffectPlayerBullets = false;
+	
 	public void OnCollisionEnter(Collision collision)
 	{
 		if (collision.gameObject.rigidbody)
@@ -44,10 +46,10 @@ public class GravityWell : MonoBehaviour
 										transform.position.y - positionOfOrbiter.y,
 										transform.position.z - positionOfOrbiter.z);
 		
-		float gravityStrength = GravitationalForce * orbiter.rigidbody.mass / direction.sqrMagnitude;
+		float gravityStrength = GravitationalForce * orbiter.rigidbody.mass / (direction.sqrMagnitude * 1.0f);
 		orbiter.rigidbody.AddForce(	direction.x * gravityStrength,
 									direction.y * gravityStrength,
 									direction.z * gravityStrength,
-									ForceMode.Acceleration);
+									ForceMode.Force);
 	}
 }

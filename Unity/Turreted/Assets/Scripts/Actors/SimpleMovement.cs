@@ -10,7 +10,7 @@ public class SimpleMovement : MonoBehaviour
 	
 	protected Vector3 mDirection;
 	
-	void Start () 
+	void Awake () 
 	{
 		mActorModel = gameObject.GetComponent("ActorModel") as ActorModel;
 		if (mActorModel == null)
@@ -32,5 +32,7 @@ public class SimpleMovement : MonoBehaviour
 
 		Vector3 direction = Quaternion.AngleAxis(Random.Range(-RandomizedHeading, RandomizedHeading), Vector3.up) * initDirection;
 		mDirection = direction;
+		
+		//rigidbody.AddForce(mDirection * Speed, ForceMode.VelocityChange);
 	}
 }
