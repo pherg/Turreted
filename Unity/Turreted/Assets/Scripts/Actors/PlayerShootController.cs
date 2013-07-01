@@ -10,11 +10,26 @@ public class PlayerShootController: MonoBehaviour
 	public UnityEngine.Object Shield;
 	
 	private const float COLOR_MAX_VALUE = 255;
-	public float MaxShotCostReductionMultiplierFromBlue = 0.5f;	
+	
+	public float BaseBulletCost = 10;
+	public float MaxShotCostReductionMultiplierFromBlue = 0.1f;	
+	
+	private ColorCombatComponent mColorCombatComponent;
+	private CombatReceiverModel mCombatReceiverModel;
 	
 	public void Awake()
 	{
-		//gameObject.layer = (int)PhysicsUtil.CollisionLayers.Player;
+		mColorCombatComponent = gameObject.GetComponent("ColorCombatComponent") as ColorCombatComponent;
+		if (mColorCombatComponent == null)
+		{
+			throw new MissingComponentException("Unable to find ColorCombatComponent");
+		}
+		
+		mCombatReceiverModel = gameObject.GetComponent("CombatReceiverModel") as CombatReceiverModel;
+		if (mCombatReceiverModel == null)
+		{
+			throw new MissingComponentException("Unable to find CombatReceiverModel");
+		}
 	}
 	
 	// Update is called once per frame
@@ -30,6 +45,8 @@ public class PlayerShootController: MonoBehaviour
 				Vector3 worldPointFromScreenPoint = Camera.mainCamera.ScreenToWorldPoint(
 					new Vector3 (Input.mousePosition.x, Input.mousePosition.y,Camera.mainCamera.nearClipPlane));
 				Vector3 direction = new Vector3(worldPointFromScreenPoint.x, 0, worldPointFromScreenPoint.z);
+				float damage = GetHealthCostPerShot();
+				mCombatReceiverModel.AlterHealthPoints(-damage);
 				
                 GameObject bulletGO = CombatGod.SpawnBullet(Bullet, gameObject, new Vector3(), direction);
 				bulletGO.renderer.material.color = gameObject.renderer.material.color;
@@ -57,4 +74,10 @@ public class PlayerShootController: MonoBehaviour
 			//shield.transform.position += transform.position;			
 		}
     }
+	
+	private float GetHealthCostPerShot()
+	{
+		float result = BaseBulletCost * mColorCombatComponent.GetBulletCostReductionScale();
+		return result;
+	}
 }

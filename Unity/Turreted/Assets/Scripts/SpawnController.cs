@@ -8,6 +8,8 @@ public class SpawnController : MonoBehaviour
 	
 	public float DistanceFromCenter = 10.0f;
 	
+	public bool WantGoofyRandomness = false;
+	
 	public UnityEngine.Object[] EnemyList;
 	
 	private float mTimeSinceLastSpawn = 0.0f;
@@ -43,21 +45,33 @@ public class SpawnController : MonoBehaviour
 		}
 		moveScript.SetTarget(new Vector3(0, 0, 0));
 		
-		float rand = 1;//Random.Range(1, 5);
-		// Just doing some goofy randomization.
+		if (WantGoofyRandomness)
+		{
+			// Just doing some goofy randomization.
+			float rand = Random.Range(0, 2);
+			Debug.Log("RAND:" + rand);
+			if ( rand > 0)
+			{
+				GoofyRandomization(3, newActor);
+			}
+		}
+	}
+	
+	private void GoofyRandomization(float scale, GameObject newActor)
+	{
 		ActorModel am = newActor.GetComponent("ActorModel") as ActorModel;
 		if (am)
 		{
-			am.Scale *= rand;
+			am.Scale *= scale;
 		}
 		if (rigidbody) 
 		{
-			rigidbody.mass *= rand;
+			rigidbody.mass *= scale;
 		}
 		CombatReceiverModel crm = newActor.GetComponent("CombatReceiverModel") as CombatReceiverModel;
 		if (crm)
 		{
-			crm.InitialHealthPoints *= rand;
+			crm.InitialHealthPoints *= scale;
 		}
 	}
 	

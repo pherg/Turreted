@@ -19,6 +19,7 @@ public class CombatReceiverModel : MonoBehaviour
 	public float DamageToAttackerOnKill = 0;
 	
 	public Color BaseColor;
+	public bool AllowColorLeech = true;
 	
 	public void AlterHealthPoints(float delta)
 	{

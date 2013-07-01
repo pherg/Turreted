@@ -10,7 +10,6 @@ public class CombatReceiverComponent : MonoBehaviour
 		// Grab the receiver off the object.
 		// If no receiver then this object will not have attacks enacted upon it.
 		mCombatReceiverModel = gameObject.GetComponent("CombatReceiverModel") as CombatReceiverModel;
-		
 		if (mCombatReceiverModel == null)
 		{
 			throw new MissingComponentException("Unable to find CombatAttackModel.  Spawning a default.");
@@ -20,6 +19,11 @@ public class CombatReceiverComponent : MonoBehaviour
 		if (renderer && renderer.material)
 		{
 			renderer.material.color = mCombatReceiverModel.BaseColor;
+			ColorCombatComponent colorComp = GetComponent("ColorCombatComponent") as ColorCombatComponent;
+			if (colorComp)
+			{
+				colorComp.SetColor(mCombatReceiverModel.BaseColor);
+			}
 		}
 	}
 	
@@ -33,7 +37,7 @@ public class CombatReceiverComponent : MonoBehaviour
 		// IF object is marked for death and not in GodMode send the death event.
 		if ((mCombatReceiverModel.MarkedForDeath || mCombatReceiverModel.HealthPoints <= 0) && !mCombatReceiverModel.GodMode)
 		{
-			SendMessage("DeathEvent", SendMessageOptions.DontRequireReceiver);
+			SendMessage("OnDeathEvent", SendMessageOptions.DontRequireReceiver);
 			Destroy (gameObject);
 		}
 	}

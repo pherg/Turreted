@@ -45,6 +45,7 @@ public class CombatAttackModel : MonoBehaviour
 		set 
 		{ 
 			mBulletMassScale = value; 
+			//Debug.Log ("BULLET MASS SCALE SET: " + mBulletMassScale);
 			SendMessage("OnBulletMassScaleChange", mBulletMassScale, SendMessageOptions.DontRequireReceiver);
 		}
 	}

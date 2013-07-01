@@ -12,6 +12,8 @@ public class LevelController : MonoBehaviour
 	private UnityEngine.Object mPlayerEngineObject;
 	private UnityEngine.Object mSpawnControllerEngineObject;
 	
+	private GameObject mReplayGUI;
+	
 	public void Constructor (UnityEngine.Object player, UnityEngine.Object spawnController)
 	{
 		mScene = UnityEngine.Application.loadedLevel;
@@ -24,13 +26,19 @@ public class LevelController : MonoBehaviour
 		StartGame();
 	}
 	
+	private float stupidCounterForDelayedGameOver = 0;
+	private float mStupidCounter = 100;
 	// Update is called once per frame
 	void Update () 
 	{
-		if (mPlayer == null && mScoreTextfield != null)
+		if (mPlayer == null && mScoreTextfield != null && mReplayGUI == null)
 		{
+			stupidCounterForDelayedGameOver++;
+			if ( stupidCounterForDelayedGameOver > mStupidCounter && mReplayGUI == null)
+			{
+				mReplayGUI = Object.Instantiate(Resources.Load ("GUI/GameOverGUI")) as GameObject;
+			}
 			mScoreTextfield.StopTrackingScore();
-			Application.LoadLevel(mScene);
 		}
 	}
 	

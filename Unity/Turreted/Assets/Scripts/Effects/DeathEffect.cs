@@ -20,8 +20,6 @@ public class DeathEffect : MonoBehaviour
 		if (mTimeLapsed >= LifeTime)
 		{
 			Destroy (gameObject);
-			
-			Application.LoadLevel(0);
 			return;
 		}
 		

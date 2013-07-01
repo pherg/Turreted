@@ -9,6 +9,9 @@ public class ColorCombatComponent : MonoBehaviour
 	public float HealthLossRateMultiplierMax = 5;
 	public float BulletMassMultiplierMax = 5;
 	public float ExplosionSizeMultiplierMax = 5;
+	public float BulletCostReductionMinMultiplier = 0.1f;
+	
+	private Color mColor;
 	
 	public void Awake()
 	{
@@ -20,7 +23,17 @@ public class ColorCombatComponent : MonoBehaviour
 		{
 			throw new MissingComponentException("Unable to find Material for ColorComponent.");
 		}
+		
+		mColor = renderer.material.color;
 	}
+	
+	public void SetColor(Color color)
+	{
+		mColor = color;
+		renderer.material.color = mColor;
+		//Debug.Log ("Final color: " + rFinal + ", " + gFinal + ", " + bFinal);
+	}
+	
 	public void AttackCombatResult(CombatResult combatResult)
 	{
 		AlterColor(combatResult.ColorChangeAttacker);
@@ -30,11 +43,16 @@ public class ColorCombatComponent : MonoBehaviour
 	{
 		//Debug.Log ("Alter Color: " + colorDelta + " Pre Delta color: " + renderer.material.color.ToString("n3"));
 		// Clamp between 0-1 because that's how colors roll.
-		float rFinal = Mathf.Clamp(renderer.material.color.r + colorDelta.x, 0, 1);
-		float gFinal = Mathf.Clamp(renderer.material.color.g + colorDelta.y, 0, 1);
-		float bFinal = Mathf.Clamp(renderer.material.color.b + colorDelta.z, 0, 1);
-		//Debug.Log ("Final color: " + rFinal + ", " + gFinal + ", " + bFinal);
-		renderer.material.color = new Color(rFinal, gFinal, bFinal);
+		float rFinal = Mathf.Clamp(mColor.r + colorDelta.x, 0, 1);
+		float gFinal = Mathf.Clamp(mColor.g + colorDelta.y, 0, 1);
+		float bFinal = Mathf.Clamp(mColor.b + colorDelta.z, 0, 1);
+		
+		SetColor(new Color(rFinal, gFinal, bFinal));
+	}
+	
+	public Color CurrentColor()
+	{
+		return mColor;
 	}
 	
 	// Color dominance variables
@@ -67,6 +85,11 @@ public class ColorCombatComponent : MonoBehaviour
 	public float GetDamageScale()
 	{
 		return renderer.material.color.r * DamageMultiplierMax + 1;
+	}
+	
+	public float GetBulletCostReductionScale()
+	{
+		return 1 - (BlueDominance() * BulletCostReductionMinMultiplier);
 	}
 	
 	private float RedDominance()

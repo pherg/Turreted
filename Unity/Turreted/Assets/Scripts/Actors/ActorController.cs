@@ -27,14 +27,20 @@ public class ActorController : MonoBehaviour
 		Destroy(gameObject);
 	}
 	
-	public virtual void OnScaleChange(OnScaleChangeEvent scaleEvt)
+	public void OnScaleChange(OnScaleChangeEvent scaleEvt)
 	{
 		float scale = scaleEvt.Scale * (scaleEvt.AdditionalScale + scaleEvt.MultiplierScale);
 		transform.localScale = new Vector3(	mActorModel.TransformScale.x * scale,
 											mActorModel.TransformScale.y * scale,
 											mActorModel.TransformScale.z * scale);
 	}
+	
+	public void OnMassChange(OnMassChangeEvent massEvt)
+	{
+		if (rigidbody)
+		{
+			rigidbody.mass = rigidbody.mass * (massEvt.AdditionalScale + massEvt.MultiplierScale);
+		}
+	}
 }
-
-
 	

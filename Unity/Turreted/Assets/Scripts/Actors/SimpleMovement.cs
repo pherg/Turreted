@@ -4,7 +4,8 @@ using System.Collections;
 public class SimpleMovement : MonoBehaviour 
 {
 	public float Speed = 2.0f;
-	public float RandomizedHeading = 45.0f;
+	public float RandomizedHeadingMax = 45.0f;
+	public float RandomizedHeadingMin = 0.0f;
 	
 	private ActorModel mActorModel;
 	
@@ -29,8 +30,14 @@ public class SimpleMovement : MonoBehaviour
 		Vector3 initDirection = target - transform.position;
 		initDirection.y = 0;
 		initDirection.Normalize();
-
-		Vector3 direction = Quaternion.AngleAxis(Random.Range(-RandomizedHeading, RandomizedHeading), Vector3.up) * initDirection;
+		
+		float randomizedHeading = Random.Range(RandomizedHeadingMin, RandomizedHeadingMax);
+		if (Random.value < 0.5f)
+		{
+			randomizedHeading *= -1;
+		}
+		
+		Vector3 direction = Quaternion.AngleAxis(randomizedHeading, Vector3.up) * initDirection;
 		mDirection = direction;
 		
 		//rigidbody.AddForce(mDirection * Speed, ForceMode.VelocityChange);

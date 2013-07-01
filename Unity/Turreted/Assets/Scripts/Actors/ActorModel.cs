@@ -49,4 +49,23 @@ public class ActorModel : MonoBehaviour
 	{
 		SendMessage ("OnScaleChange", new OnScaleChangeEvent(mScale, mScaleAddition, mScaleMultiplier), SendMessageOptions.DontRequireReceiver); 
 	}
+	
+	private float mMassAddition = 0;
+	public void AlterMassAddition(float delta)
+	{
+		mMassAddition += delta;
+		SendMassChangeHelper();
+	}
+	
+	private float mMassMultiplier = 1;
+	public void AlterMassMultiplier(float delta)
+	{
+		mScaleMultiplier += delta;
+		SendMassChangeHelper();
+	}
+			
+	private void SendMassChangeHelper()
+	{
+		SendMessage ("OnMassChange", new OnMassChangeEvent(mScaleAddition, mScaleMultiplier), SendMessageOptions.DontRequireReceiver); 
+	}
 }
